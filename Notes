@@ -8,10 +8,16 @@
 
 
 
+            rfc -> create ponentreact functional component
+
+            rfce ->react functional export  component
+
+            ctrl + shift + p == open browser in vs code
+
 
     #1 register html
 
-            ->first naeme
+            ->first name
             ->last name
             ->email address
             ->user name
@@ -20,4 +26,12 @@
             ->button- register/login
 
    ->  allredy registetr ? login 
+
+
+npm i bootstrap-icons --save   => to install bootstrapm icons 
+
+import "bootstrap-icons/font/bootstrsp-icons.css"  => add in index.js
+
+
+
             
