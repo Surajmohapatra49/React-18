@@ -1,84 +1,74 @@
+import React from 'react'
+import { useState } from "react";
+import { useFormik, Formik, Form, Field, ErrorMessage } from "formik";
+import * as yup from "yup";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
-
-import React from 'react';
-import "bootstrap-icons/font/bootstrap-icons.css"
-
-import { useState } from 'react';
-
-const RegistrationForm = () => {
-
-  const [eye , setEye] = useState(false);
-  const [eye2 , setEye2] = useState(false);
-
-  const [formData, setFormData] = useState({
-    // username: '',
-    // email: '',
-    // password: '',
-
- 
-  });
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Implement your registration logic here using formData
-    console.log('Registration data:', formData);
-  };
-
+const Register = () => {
+    let ShowNotification = () => {
+        NotificationManager.error('Error message')
+      }
+      
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        FirstName:
-        <input
-          type="text"
-          name="fname"
-      
-     
-        />
-      </label> <br></br>
-      <label>
-        LastName:
-        <input
-          type="text"
-          name="lname"
-        />
-      </label><br></br>
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          
-        />
-      </label><br></br>
-      <label>
-        UserName:
-        <input
-          type="text"
-          name="username"
-         
-        />
-      </label><br></br>
-      <label>
-        Password:
-        <input
-          type={eye ? 'text':'password'}
-          name="password"
-         
-        />
-      </label> <button onClick={()=>setEye(!eye)}>{eye ? 'hide' : 'show'}</button><br></br>
-      
-      <label>
-        ConfirmPassword:
-        <input
-          type= {eye2 ? 'text' : "password"}
-          name="cpassword"
-          
-        />
-      </label>  <button onClick={()=>setEye2(!eye2)}> {eye2 ? <i className='bi bi-eye-slash'></i> : <i className='bi bi-eye'></i>}</button><br></br>
-      <button type="submit">Register</button>
-    </form>
-  );
-};
+    <div>
+       <div className="container-fluid" >
+            <h2>  Register User</h2>
+            <Formik
 
-export default RegistrationForm;
+              initialValues={{ FirstName:'' ,LastName: '' ,Phone: '' , email: '' , age: '' ,password: '' }}
+
+              validationSchema={yup.object({
+                  FirstName: yup.string().required(' First Name Required').min(4,'Name too Short'),
+                  LastName: yup.string().required(' Last Name Required').min(4,'Name too Short'),
+                  Phone: yup.string().required('Phone number required').matches(/\+91\d{10}/,'Invalid Mobile'),
+                  email : yup.string().required('email id required'),
+                  age : yup.number().required('Age  required') .min(18 , 'min 18 required') .max(48 , 'max 48 required'),
+                  password:yup.string().required('Password required').matches(/^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/, 'Invalid password')
+
+              })}
+
+              onSubmit={(values)=>{alert(JSON.stringify(values))}}
+            >
+
+                <Form>
+                    <dl>
+                        <dt className="bi bi-person-fill"> First Name</dt>
+                        <dd> <Field type="text" name="FirstName" /> </dd>
+                        <dd className="text-danger"> <ErrorMessage name="FirstName" /> </dd>
+
+                        <dt className="bi bi-person-fill"> Last Name</dt>
+                         <dd> <Field type="text" name="LastName" /> </dd>
+                        <dd className="text-danger"> <ErrorMessage name="LastName" /> </dd>
+
+                        <dt className="bi bi-telephone-fill"> Mobile</dt>
+                        <dd> <Field type="text" name="Phone" /> </dd>
+                        <dd className="text-danger"> <ErrorMessage name="Phone" /> </dd>
+
+                        <dt className="bi bi-envelope-fill"> Email</dt>
+                        <dd><Field type="email" name="email"/></dd>
+                        <dd className="text-danger"> <ErrorMessage name="email"/> </dd>
+
+                        
+                        <dt> Age</dt>
+                         <dd> <Field type="text" name="age" /> </dd>
+                        <dd className="text-danger"> <ErrorMessage name="age" /> </dd>
+
+                         
+                        <dt>Password</dt>
+                         <dd> <Field type="text" name="password" /> </dd>
+                        <dd className="text-danger"> <ErrorMessage name="password" /> </dd>
+
+                    </dl> 
+                    <NotificationContainer/>
+
+                   
+                    <button onClick={ShowNotification} className="btn btn-primary">Register</button>
+                </Form>
+
+            </Formik>
+        </div>
+    </div>
+  )
+}
+
+export default Register

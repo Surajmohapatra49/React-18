@@ -33,5 +33,13 @@ npm i bootstrap-icons --save   => to install bootstrapm icons
 import "bootstrap-icons/font/bootstrsp-icons.css"  => add in index.js
 
 
+  => to installl react notifications = npm i react-notifications 
+
+  => inside App.js explicitly wright import 'react-notifications/lib/notifications.css';
+
+   => backend => npm i nodemon      to install nodemon  
+    in backend folder then go to package.json and  add  sripts in "start": "nodemon server.js"
+
+   => npm i express                 to install express
 
             
